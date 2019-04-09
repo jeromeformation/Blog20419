@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentFrontType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +32,7 @@ class ArticleController extends AbstractController
      * @Route("/article/creation", name="article_create")
      * @param Request $request
      * @return Response
+     * @throws \Exception
      */
     public function create(Request $request): Response
     {
@@ -63,18 +66,28 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/article/{id}", name="article_show")
+     * @param Article $article
+     * @param Request $request
+     * @return Response
      */
-    public function show($id)
+    public function show(Article $article, Request $request)
     {
-        // Récupération du Repository
-        $repository = $this->getDoctrine()->getRepository(Article::class);
-        // Récupération de l'article lié à l'id
-        $article = $repository->findOneBy([
-            'id' => $id
-        ]);
+        // Création du formulaire pour l'ajout de commentaire
+        $newComment = new Comment();
+        $newComment->setArticle($article);
+        $commentForm = $this->createForm(CommentFrontType::class, $newComment);
+
+        // Gestion de l'ajout d'un commentaire
+        $commentForm->handleRequest($request);
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($newComment);
+            $manager->flush();
+        }
 
         return $this->render('article/show.html.twig', [
-            'article' => $article
+            'article' => $article,
+            'commentForm' => $commentForm->createView()
         ]);
     }
 

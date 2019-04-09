@@ -12,4 +12,28 @@
         <a href="{{ path('article_update', {id: article.id }) }}" class="btn btn-sm btn-outline-secondary">Modifier l'article</a>
         <a href="{{ path('article_delete', {id: article.id }) }}" class="btn btn-sm btn-outline-secondary">Supprimer l'article</a>
     </div>
+
+    <h2>Commentaires</h2>
+    {% for comment in article.comments %}
+        <div class="card">
+            <div class="card-body">
+                {{ comment.content }}
+            </div>
+        </div>
+    {% endfor %}
+    <h2>Ajouter un commentaire</h2>
+    {{ form_start(commentForm) }}
+        {{ form_widget(commentForm.content) }}
+        {{ form_errors(commentForm.content) }}
+        <input type="submit" value="Publier" class="btn btn-block btn-success">
+    {{ form_end(commentForm) }}
 {% endblock %}
+
+
+
+
+
+
+
+
+
