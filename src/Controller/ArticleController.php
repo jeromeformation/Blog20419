@@ -48,7 +48,7 @@ class ArticleController extends AbstractController
             $manager->persist($article); // Préparation du SQL
             $manager->flush(); // Exécution du SQL
             // Ajout d'un message flash
-            $this->addFlash('success', 'Votre a bien été ajouté');
+            $this->addFlash('success', 'Votre article bien été ajouté');
             // Redirection vers le détail de l'article
             return $this->redirectToRoute('article_show', [
                 'id' => $article->getId()
@@ -75,6 +75,39 @@ class ArticleController extends AbstractController
 
         return $this->render('article/show.html.twig', [
             'article' => $article
+        ]);
+    }
+
+    /**
+     * @Route("/article/{id}/modification", name="article_update")
+     * @param Article $article
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(Article $article, Request $request): Response
+    {
+        // Récupération du formulaire
+        $form = $this->createForm(ArticleType::class, $article);
+
+        // Remplir le formulaire avec les variables $_POST
+        $form->handleRequest($request);
+
+        // On vérifie que le formulaire est soumis et valide
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Récupération du manager
+            $manager = $this->getDoctrine()->getManager();
+            // Mis à jour en BDD
+            $manager->flush();
+            // Ajout du message flash
+            $this->addFlash('primary', 'Votre article a bien été modifié');
+            // Redirection vers le détail de l'article
+            return $this->redirectToRoute('article_show', [
+                'id' => $article->getId()
+            ]);
+        }
+
+        return $this->render('article/update.html.twig', [
+            'editForm' => $form->createView()
         ]);
     }
 }
