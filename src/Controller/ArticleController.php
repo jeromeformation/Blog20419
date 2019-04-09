@@ -73,22 +73,34 @@ class ArticleController extends AbstractController
     public function show(Article $article, Request $request)
     {
         // Création du formulaire pour l'ajout de commentaire
-        $newComment = new Comment();
-        $newComment->setArticle($article);
-        $commentForm = $this->createForm(CommentFrontType::class, $newComment);
+        $commentForm = $this->createFormComment($article);
 
         // Gestion de l'ajout d'un commentaire
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $manager = $this->getDoctrine()->getManager();
-            $manager->persist($newComment);
+            $manager->persist($commentForm->getData());
             $manager->flush();
+            $commentForm = $this->createFormComment($article);
         }
 
         return $this->render('article/show.html.twig', [
             'article' => $article,
             'commentForm' => $commentForm->createView()
         ]);
+    }
+
+    /**
+     * Créé un formulaire pour ajouter un nouveau comment à un article
+     * @param Article $article
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    private function createFormComment(Article $article)
+    {
+        // Création d'un nouveau formulaire
+        $comment = new Comment();
+        $comment->setArticle($article);
+        return $this->createForm(CommentFrontType::class, $comment);
     }
 
     /**
