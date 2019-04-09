@@ -58,6 +58,8 @@ class Article
 
     /**
      * On initialise la date de création et le nombre de vues
+     *
+     *
      * @throws \Exception
      */
     public function __construct()

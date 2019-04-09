@@ -47,6 +47,12 @@ class ArticleController extends AbstractController
             // Insertion de l'article en BDD
             $manager->persist($article); // Préparation du SQL
             $manager->flush(); // Exécution du SQL
+            // Ajout d'un message flash
+            $this->addFlash('success', 'Votre a bien été ajouté');
+            // Redirection vers le détail de l'article
+            return $this->redirectToRoute('article_show', [
+                'id' => $article->getId()
+            ]);
         }
 
         // Envoi du formulaire à la vue
