@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -18,21 +19,36 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\Length(
+     *     min = 5,
+     *     max = 64
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *     min = 50
+     * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Assert\Length(
+     *     min = 5,
+     *     max = 128
+     * )
      */
     private $imageSrc;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Assert\Length(
+     *     min = 5,
+     *     max = 128
+     * )
      */
     private $imageAlt;
 
@@ -48,6 +64,7 @@ class Article
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\Type(type="bool")
      */
     private $isPublished;
 

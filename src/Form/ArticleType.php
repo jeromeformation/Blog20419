@@ -13,7 +13,11 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title', null, [
-                'label' => "Titre de l'article"
+                'label' => "Titre de l'article",
+                'attr' => [
+                    'minLength' => '4',
+                    'pattern' => false
+                ]
             ])
             ->add('imageSrc', null, [
                 'label' => "Source de l'image (futur upload)"

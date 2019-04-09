@@ -110,4 +110,22 @@ class ArticleController extends AbstractController
             'editForm' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/article/{id}/suppression", name="article_delete")
+     * @param Article $article
+     * @return Response
+     */
+    public function delete(Article $article): Response
+    {
+        // Récupération du manager
+        $manager = $this->getDoctrine()->getManager();
+        // Suppression de l'article
+        $manager->remove($article);
+        $manager->flush();
+        // Ajout d'un message flash
+        $this->addFlash('danger', 'Votre article a bien été supprimé');
+        // Redirection vers la liste des articles
+        return $this->redirectToRoute('article_list');
+    }
 }

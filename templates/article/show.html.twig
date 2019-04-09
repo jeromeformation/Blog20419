@@ -8,4 +8,8 @@
     <p>{{ article.description }}</p>
 
     <a href="{{ path('article_list') }}">Retour à la liste des articles</a>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a href="{{ path('article_update', {id: article.id }) }}" class="btn btn-sm btn-outline-secondary">Modifier l'article</a>
+        <a href="{{ path('article_delete', {id: article.id }) }}" class="btn btn-sm btn-outline-secondary">Supprimer l'article</a>
+    </div>
 {% endblock %}
