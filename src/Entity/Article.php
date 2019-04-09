@@ -56,6 +56,18 @@ class Article
      */
     private $nbViews;
 
+    /**
+     * On initialise la date de création et le nombre de vues
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        // On ajoute la date de création
+        $this->setCreatedAt(new \DateTime());
+        // On initialise le nombre de vues à 0
+        $this->setNbViews(0);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
