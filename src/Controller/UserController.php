@@ -4,13 +4,11 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserEditRoleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
-/**
- * @Cache(expires="tomorrow", public=true)
- */
 class UserController extends AbstractController
 {
     /**
@@ -34,7 +32,7 @@ class UserController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function edit(int $id): Response
+    public function edit(int $id, Request $request): Response
     {
         // Récupération du Repository
         $repo = $this->getDoctrine()->getRepository(User::class);
@@ -45,6 +43,19 @@ class UserController extends AbstractController
 
         // Instanciation du formulaire
         $form = $this->createForm(UserEditRoleType::class, $user);
+
+        // Remplir le formulaire avec les variables $_POST
+        $form->handleRequest($request);
+
+        // On vérifie que le formulaire est soumis et valide
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Récupération du manager
+            $manager = $this->getDoctrine()->getManager();
+            // Mis à jour en BDD
+            $manager->flush();
+            // Ajout du message flash
+            $this->addFlash('primary', 'Rôle modifié');
+        }
 
         // Renvoi des utilisateurs à la vue
         return $this->render('user/show.html.twig', [

@@ -10,7 +10,7 @@
     </head>
     <body>
         {% block navbar %}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">Navbar</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -46,7 +46,7 @@
                                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                                 </a>
                             {% else %}
-                                <div style="display: flex;">
+                                <div class="d-flex">
                                     <a class="nav-link"  href="{{ path('fos_user_registration_register') }}">Inscription</a>
                                     <a class="nav-link"  href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
                                 </div>
