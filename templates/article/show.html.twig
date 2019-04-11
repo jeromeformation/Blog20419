@@ -29,7 +29,10 @@
     {{ form_end(commentForm) }}
 {% endblock %}
 
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ajax-article-likes.js') }}"></script>
+{% endblock %}
 
 
 

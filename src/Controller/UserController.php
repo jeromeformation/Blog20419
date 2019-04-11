@@ -57,7 +57,7 @@ class UserController extends AbstractController
             $this->addFlash('primary', 'Rôle modifié');
         }
 
-        // Renvoi des utilisateurs à la vue
+        // Renvoi de l'utilisateur à la vue
         return $this->render('user/show.html.twig', [
             'user' => $user,
             'editForm' => $form->createView()

@@ -86,8 +86,15 @@ class Article
     private $commentaires;
 
     /**
-     * On initialise la date de création et le nombre de vues
-     *
+     * @ORM\Column(type="integer")
+     */
+    private $likes;
+
+    /**
+     * On initialise :
+     * - la date de création
+     * - le nombre de vues
+     * - le nombre de likes
      *
      * @throws \Exception
      */
@@ -97,6 +104,10 @@ class Article
         $this->setCreatedAt(new \DateTime());
         // On initialise le nombre de vues à 0
         $this->setNbViews(0);
+        // On initialise le nombre de likes à 0
+        $this->setLikes(0);
+
+        // OneToMany
         $this->comments = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
     }
@@ -272,6 +283,18 @@ class Article
                 $commentaire->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLikes(): ?int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(int $likes): self
+    {
+        $this->likes = $likes;
 
         return $this;
     }
