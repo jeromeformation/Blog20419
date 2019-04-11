@@ -13,6 +13,15 @@
         <a href="{{ path('article_delete', {id: article.id }) }}" class="btn btn-sm btn-outline-secondary">Supprimer l'article</a>
     </div>
 
+    <div id="likes">
+        <span>{{ article.likes }}</span>
+        <button class="btn btn-primary" data-id="{{ article.id }}">
+            <i class="far fa-hand-point-right"></i>
+        </button>
+    </div>
+
+
+
     <h2>Commentaires</h2>
     {% for comment in article.comments %}
         <div class="card">
