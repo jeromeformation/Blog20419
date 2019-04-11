@@ -2,10 +2,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserEditRoleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
+/**
+ * @Cache(expires="tomorrow", public=true)
+ */
 class UserController extends AbstractController
 {
     /**
@@ -33,14 +38,18 @@ class UserController extends AbstractController
     {
         // Récupération du Repository
         $repo = $this->getDoctrine()->getRepository(User::class);
-        // Récupération des utilisateurs
+        // Récupération de l'utilisateur
         $user = $repo->findOneBy([
             'id' => $id
         ]);
 
+        // Instanciation du formulaire
+        $form = $this->createForm(UserEditRoleType::class, $user);
+
         // Renvoi des utilisateurs à la vue
         return $this->render('user/show.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'editForm' => $form->createView()
         ]);
     }
 }
