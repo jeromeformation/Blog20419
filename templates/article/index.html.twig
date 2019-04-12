@@ -6,7 +6,7 @@
     <h1>Liste des articles</h1>
 
     <ul>
-    {% for article in articles %}
+    {% for article in pagination %}
         <li>
             {{ article.title }}
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -19,5 +19,9 @@
         </li>
     {% endfor %}
     </ul>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 
 {% endblock %}
