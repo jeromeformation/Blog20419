@@ -6,28 +6,23 @@ use App\Entity\Article;
 use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
+use Faker\ORM\Doctrine\Populator;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for ($i=0; $i<50; $i++) {
-            // Création des articles
-            $article = new Article();
-            $article->setTitle('Titre de l\'article');
-            $article->setDescription('Description de l\'article');
-            $article->setIsPublished(true);
+        $generator = Factory::create('fr_FR');
+        $populator = new Populator($generator, $manager);
 
-            $manager->persist($article);
+        $populator->addEntity(Article::class, 150, [
+            'title' => function () use ($generator) {
+                return $generator->text(64);
+            }
+        ]);
+        $populator->addEntity(Comment::class, 500);
 
-            // Création des commentaires
-            $comment = new Comment();
-            $comment->setContent('Contenu du commentaire');
-            $comment->setArticle($article);
-
-            $manager->persist($comment);
-        }
-
-        $manager->flush();
+        $populator->execute();
     }
 }
