@@ -7,7 +7,6 @@ $('#likes button').on('click', function() {
     const params = {
         url: 'http://blog2.local/api/article/likes/' + id
     };
-
     // Lancement de l'appel AJAX
     $.ajax(params).done(displayNewLikes);
 });

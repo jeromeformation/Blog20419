@@ -1,0 +1,18 @@
+easy_admin:
+    site_name: 'Hamac Corporation'
+    design:
+        brand_color: 'red'
+    entities:
+        Article:
+            class: App\Entity\Article
+            label: 'Les articles'
+            list:
+                title: "Liste des articles"
+            new:
+                fields: [title, description, isPublished, imageSrc, imageAlt]
+            edit:
+                fields: [title, description, isPublished, imageSrc, imageAlt]
+        Comment:
+            class: App\Entity\Comment
+            list:
+                fields: [content, article]

@@ -26,7 +26,10 @@ class Commentaire
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;
-
+    public function __toString()
+    {
+        return 'fdlmgkdfgmldkflmfdkg';
+    }
     public function getId(): ?int
     {
         return $this->id;
