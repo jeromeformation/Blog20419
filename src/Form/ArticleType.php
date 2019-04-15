@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,7 +20,7 @@ class ArticleType extends AbstractType
                     'pattern' => false
                 ]
             ])
-            ->add('imageSrc', null, [
+            ->add('imageSrc', FileType::class, [
                 'label' => "Source de l'image (futur upload)"
             ])
             ->add('imageAlt', null, [

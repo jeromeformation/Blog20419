@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Form\ArticleType;
 use App\Form\CommentFrontType;
 use Knp\Component\Pager\PaginatorInterface;
+use Stof\DoctrineExtensionsBundle\Uploadable\UploadableManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,10 +42,11 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/creation", name="article_create")
      * @param Request $request
+     * @param UploadableManager $uploadableManager
      * @return Response
      * @throws \Exception
      */
-    public function create(Request $request): Response
+    public function create(Request $request, UploadableManager $uploadableManager): Response
     {
         // Récupération du formulaire
         $article = new Article();
@@ -59,6 +61,9 @@ class ArticleController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             // Insertion de l'article en BDD
             $manager->persist($article); // Préparation du SQL
+
+            $uploadableManager->markEntityToUpload($article, $article->getImageSrc());
+
             $manager->flush(); // Exécution du SQL
             // Ajout d'un message flash
             $this->addFlash('success', 'Votre article bien été ajouté');

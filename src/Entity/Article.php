@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @Gedmo\Uploadable(path="C:\Users\stagiaire\workspace\Blog20419\public\uploads")
  */
 class Article
 {
@@ -42,6 +44,7 @@ class Article
      *     min = 5,
      *     max = 128
      * )
+     * @Gedmo\UploadableFilePath
      */
     private $imageSrc;
 
@@ -89,6 +92,12 @@ class Article
      * @ORM\Column(type="integer")
      */
     private $likes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\UploadableFileName
+     */
+    private $imageName;
 
     /**
      * On initialise :
@@ -153,12 +162,12 @@ class Article
         return $this;
     }
 
-    public function getImageSrc(): ?string
+    public function getImageSrc()
     {
         return $this->imageSrc;
     }
 
-    public function setImageSrc(?string $imageSrc): self
+    public function setImageSrc($imageSrc): self
     {
         $this->imageSrc = $imageSrc;
 
@@ -295,6 +304,18 @@ class Article
     public function setLikes(int $likes): self
     {
         $this->likes = $likes;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(string $imageName): self
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }
