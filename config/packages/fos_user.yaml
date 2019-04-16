@@ -7,4 +7,6 @@ fos_user:
     from_email:
         address: "%env(MAILER_SENDER_ADDRESS)%"
         sender_name: "%env(MAILER_SENDER_NAME)%"
-
+    registration:
+        form:
+            type: App\Form\RegistrationFormType
