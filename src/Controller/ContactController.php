@@ -14,20 +14,42 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      * @param Request $request
+     * @param \Swift_Mailer $mailer
      * @return RedirectResponse | Response
      */
-    public function index(Request $request)
+    public function index(Request $request, \Swift_Mailer $mailer)
     {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());
-            die('Recuperation des donnees');
+            $datas = $form->getData();
+            $this->sendMail($datas, $mailer);
         }
 
         return $this->render('contact/index.html.twig', [
             'contactForm' => $form->createView(),
         ]);
+    }
+
+    /**
+     * Envoi d'un mail avec SwiftMailer
+     * @param $datas
+     * @param \Swift_Mailer $mailer
+     */
+    private function sendMail($datas, \Swift_Mailer $mailer)
+    {
+        $message = new \Swift_Message();
+        $message->setSubject($datas['object']);
+        $message->setFrom('noreply@monsite.fr');
+        $message->setTo('admin@monsite.fr   ');
+        $message->setBody(
+            $this->renderView('contact/modele.html.twig', [
+                'datas' => $datas
+            ]),
+            'text/html'
+        );
+
+        $mailer->send($message);
     }
 }
