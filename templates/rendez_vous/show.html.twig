@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RendezVous{% endblock %}
+
+{% block body %}
+    <h1>RendezVous</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rendez_vous.id }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ rendez_vous.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ rendez_vous.nom }}</td>
+            </tr>
+            <tr>
+                <th>DatetimeAt</th>
+                <td>{{ rendez_vous.datetimeAt ? rendez_vous.datetimeAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateAt</th>
+                <td>{{ rendez_vous.dateAt ? rendez_vous.dateAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>TimeAt</th>
+                <td>{{ rendez_vous.timeAt ? rendez_vous.timeAt|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>YearAt</th>
+                <td>{{ rendez_vous.yearAt ? rendez_vous.yearAt|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('rendez_vous_index') }}">back to list</a>
+
+    <a href="{{ path('rendez_vous_edit', {'id': rendez_vous.id}) }}">edit</a>
+
+    {{ include('rendez_vous/_delete_form.html.twig') }}
+{% endblock %}
