@@ -16,3 +16,14 @@ easy_admin:
             class: App\Entity\Comment
             list:
                 fields: [content, article]
+        Recette:
+            class: App\Entity\Recette
+            form:
+                fields:
+                    - title
+                    - etapes
+                    -
+                        property: imageFile
+                        type: "file"
+        Prestation:
+            class: App\Entity\Prestation
