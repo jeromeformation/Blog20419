@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RendezVousRepository")
@@ -43,6 +44,13 @@ class RendezVous
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\Date(message="Veuillez saisir une date - Mot à 4 numéros")
+     * @Assert\Range(
+     *      min = 1000,
+     *      max = 2019,
+     *      minMessage = "You must be at least {{ limit }}cm tall to enter",
+     *      maxMessage = "You cannot be taller than {{ limit }}cm to enter"
+     * )
      */
     private $yearAt;
 
