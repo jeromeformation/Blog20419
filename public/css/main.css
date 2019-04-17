@@ -16,3 +16,8 @@ img {
     max-width: 100%;
     height: auto;
 }
+.btn-blue {
+    color: white;
+    background-color: #404aff;
+    border-color: #404aff;
+}
