@@ -1,4 +1,10 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    {{ form_errors(form.prenom) }}
+    <label>Prénom</label>
+    {{ form_widget(form.prenom, {"attr": {"class": 'custom'}}) }}
+    {{ form_help(form.prenom) }}
+
+    {{ form_row(form.nom) }}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
