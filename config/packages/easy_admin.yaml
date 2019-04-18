@@ -27,3 +27,5 @@ easy_admin:
                         type: "file"
         Prestation:
             class: App\Entity\Prestation
+        CategoryPrestation:
+            class: App\Entity\CategoryPrestation

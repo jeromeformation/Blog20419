@@ -3,16 +3,23 @@
 {% block title %}Hello PrestationController!{% endblock %}
 
 {% block body %}
+    <h1>Liste des prestations</h1>
 
-    <h1>Liste</h1>
+    {% for category in categories %}
+        <h2>{{ category.name }}</h2>
 
-    {% for presta in prestations %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">{{ presta.name }}</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+        <div class="row">
+            {% for presta in category.prestations %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ presta.name }}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
+
     {% endfor %}
+
 {% endblock %}

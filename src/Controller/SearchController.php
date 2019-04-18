@@ -23,11 +23,11 @@ class SearchController extends AbstractController
 
         if ($form->isSubmitted()) {
             dump('la');
-            $personne =  $this->getDoctrine()
+            $personnes =  $this->getDoctrine()
                 ->getRepository(Personne::class)
                 ->findPeoples($personne);
 
-            dump($personne);
+            dump($personnes);
             die();
         }
 

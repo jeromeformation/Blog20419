@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Prestation;
+use App\Entity\CategoryPrestation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,11 +13,11 @@ class PrestationController extends AbstractController
      */
     public function index()
     {
-        $repository = $this->getDoctrine()->getRepository(Prestation::class);
-        $prestations = $repository->findAll();
+        $repository = $this->getDoctrine()->getRepository(CategoryPrestation::class);
+        $categories = $repository->findAll();
 
         return $this->render('prestation/index.html.twig', [
-            'prestations' => $prestations
+            'categories' => $categories
         ]);
     }
 }
