@@ -31,6 +31,16 @@ class Personne
      */
     private $profession;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Matricule", inversedBy="personne", cascade={"persist", "remove"})
+     */
+    private $matricule;
+
+    public function __toString()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +78,18 @@ class Personne
     public function setProfession(string $profession): self
     {
         $this->profession = $profession;
+
+        return $this;
+    }
+
+    public function getMatricule(): ?Matricule
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(?Matricule $matricule): self
+    {
+        $this->matricule = $matricule;
 
         return $this;
     }

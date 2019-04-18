@@ -29,3 +29,7 @@ easy_admin:
             class: App\Entity\Prestation
         CategoryPrestation:
             class: App\Entity\CategoryPrestation
+        Personne:
+            class: App\Entity\Personne
+        Matricule:
+            class: App\Entity\Matricule
