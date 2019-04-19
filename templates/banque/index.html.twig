@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>MBE</h1>
+
+    <a href="{{ path('mbe_registration_particulier') }}" class="btn btn-primary">
+        Créer un compte particulier
+    </a>
+    <a href="{{ path('mbe_registration_entreprise') }}" class="btn btn-success">
+        Créer un compte entreprise
+    </a>
+{% endblock %}
